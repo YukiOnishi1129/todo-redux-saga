@@ -21,7 +21,7 @@ services:
   mysql:
     image: mysql:5.7
     environment:
-      MYSQL_DATABASE: sampleDB
+      MYSQL_DATABASE: todo-redux-saga
       MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
