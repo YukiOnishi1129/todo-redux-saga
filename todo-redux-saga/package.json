@@ -28,6 +28,8 @@
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.2.2",
         "connected-react-router": "^6.8.0",
+        "history": "^4.10.1",
+        "prop-types": "^15.7.2",
         "react-redux": "^7.2.0",
         "react-router-dom": "^5.2.0",
         "redux": "^4.0.5",
