@@ -5,7 +5,7 @@ export default class TodoDetail extends Component {
     render() {
         return (
             <React.Fragment>
-                <h1 className="title">TodoDetail</h1>
+                <h1 className="title">Todo Detail</h1>
             </React.Fragment>
         );
     }

@@ -36090,7 +36090,15 @@ var TodoAdd = /*#__PURE__*/function (_Component) {
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "title"
-      }, "TodoAdd"));
+      }, "Todo Add"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "New Todo Title"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        name: "",
+        id: "",
+        cols: "30",
+        rows: "10"
+      })));
     }
   }]);
 
@@ -36116,7 +36124,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _containers_TodoList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/TodoList */ "./resources/js/containers/TodoList.jsx");
-/* harmony import */ var _components_TodoAdd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/TodoAdd */ "./resources/js/components/TodoAdd.jsx");
+/* harmony import */ var _containers_TodoAdd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/TodoAdd */ "./resources/js/containers/TodoAdd.jsx");
 /* harmony import */ var _components_TodoDetail__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/TodoDetail */ "./resources/js/components/TodoDetail.jsx");
 /* harmony import */ var _components_TodoEdit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/TodoEdit */ "./resources/js/components/TodoEdit.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -36174,7 +36182,7 @@ var TodoApp = /*#__PURE__*/function (_Component) {
         component: _containers_TodoList__WEBPACK_IMPORTED_MODULE_2__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/new",
-        component: _components_TodoAdd__WEBPACK_IMPORTED_MODULE_3__["default"]
+        component: _containers_TodoAdd__WEBPACK_IMPORTED_MODULE_3__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/detail",
         component: _components_TodoDetail__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -36247,7 +36255,7 @@ var TodoDetail = /*#__PURE__*/function (_Component) {
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "title"
-      }, "TodoDetail"));
+      }, "Todo Detail"));
     }
   }]);
 
@@ -36314,7 +36322,7 @@ var TodoEdit = /*#__PURE__*/function (_Component) {
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "title"
-      }, "TodoEdit"));
+      }, "Todo Edit"));
     }
   }]);
 
@@ -36473,6 +36481,40 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./resources/js/containers/TodoAdd.jsx":
+/*!*********************************************!*\
+  !*** ./resources/js/containers/TodoAdd.jsx ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./resources/js/actions/index.jsx");
+/* harmony import */ var _components_TodoAdd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/TodoAdd */ "./resources/js/components/TodoAdd.jsx");
+
+
+
+
+var masStateToProps = function masStateToProps(state) {
+  return {
+    uniqueId: state.reducer.tasksReducer.uniqueId
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    onCreateTodo: function onCreateTodo(todo) {
+      dispatch();
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(masStateToProps, mapDispatchToProps)(_components_TodoAdd__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
 /***/ "./resources/js/containers/TodoList.jsx":
 /*!**********************************************!*\
   !*** ./resources/js/containers/TodoList.jsx ***!
@@ -36554,10 +36596,12 @@ __webpack_require__.r(__webpack_exports__);
 var initialState = {
   todos: [{
     id: 1,
-    title: "Task1"
+    title: "Task1",
+    content: "Task1 content"
   }, {
     id: 2,
-    title: "Task2"
+    title: "Task2",
+    content: "Task2 content"
   }],
   uniqueId: 2,
   // todoが初期値で2つあるため、todo追加した際のidの採番を3から開始する

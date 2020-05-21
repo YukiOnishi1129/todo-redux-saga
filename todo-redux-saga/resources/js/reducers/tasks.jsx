@@ -3,11 +3,13 @@ const initialState = {
     todos: [
         {
             id: 1,
-            title: "Task1"
+            title: "Task1",
+            content: "Task1 content"
         },
         {
             id: 2,
-            title: "Task2"
+            title: "Task2",
+            content: "Task2 content"
         }
     ],
     uniqueId: 2, // todoが初期値で2つあるため、todo追加した際のidの採番を3から開始する

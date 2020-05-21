@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import TodoList from "../containers/TodoList";
-import TodoAdd from "../components/TodoAdd";
+import TodoAdd from "../containers/TodoAdd";
 import TodoDetail from "../components/TodoDetail";
 import TodoEdit from "../components/TodoEdit";
 
