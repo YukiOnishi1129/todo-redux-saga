@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default class Todo extends Component {
@@ -72,8 +73,15 @@ export default class Todo extends Component {
                 <span className="todo-task" onClick={this.handleClickEditForm}>
                     {this.props.title}
                 </span>
-                <i className="far fa-file-alt fa-lg"></i>
-                <i className="far fa-edit fa-lg"></i>
+
+                <Link to="/detail">
+                    <i className="far fa-file-alt fa-lg"></i>
+                </Link>
+
+                <Link to="/edit">
+                    <i className="far fa-edit fa-lg"></i>
+                </Link>
+
                 <i
                     className="far fa-trash-alt delete fa-lg"
                     onClick={this.handleClickDelete}

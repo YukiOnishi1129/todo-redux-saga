@@ -16,12 +16,6 @@ export default class TodoApp extends Component {
                     <li>
                         <Link to="/new">CREATE</Link>
                     </li>
-                    <li>
-                        <Link to="/detail">DETAIL</Link>
-                    </li>
-                    <li>
-                        <Link to="/edit">EDIT</Link>
-                    </li>
                 </ul>
                 <Switch>
                     <Route exact path="/" component={TodoList}></Route>
