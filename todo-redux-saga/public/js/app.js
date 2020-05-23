@@ -36078,13 +36078,17 @@ var Todo = /*#__PURE__*/function (_Component) {
       //         {this.props.title}
       //     </span>
       // );
+      var toDetail = function toDetail(id) {
+        return "/detail/".concat(id);
+      };
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "todo"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "todo-task",
         onClick: this.handleClickEditForm
       }, this.props.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/detail"
+        to: toDetail(this.props.id)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "far fa-file-alt fa-lg"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -36253,7 +36257,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Nav__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Nav */ "./resources/js/components/Nav.jsx");
 /* harmony import */ var _containers_TodoList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/TodoList */ "./resources/js/containers/TodoList.jsx");
 /* harmony import */ var _containers_TodoAdd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../containers/TodoAdd */ "./resources/js/containers/TodoAdd.jsx");
-/* harmony import */ var _components_TodoDetail__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/TodoDetail */ "./resources/js/components/TodoDetail.jsx");
+/* harmony import */ var _containers_TodoDetail__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../containers/TodoDetail */ "./resources/js/containers/TodoDetail.jsx");
 /* harmony import */ var _components_TodoEdit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/TodoEdit */ "./resources/js/components/TodoEdit.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -36309,8 +36313,13 @@ var TodoApp = /*#__PURE__*/function (_Component) {
         path: "/new",
         component: _containers_TodoAdd__WEBPACK_IMPORTED_MODULE_4__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-        path: "/detail",
-        component: _components_TodoDetail__WEBPACK_IMPORTED_MODULE_5__["default"]
+        path: "/detail/:id",
+        render: function render(_ref) {
+          var match = _ref.match;
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TodoDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            todoId: match.params.id
+          });
+        }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/edit",
         component: _components_TodoEdit__WEBPACK_IMPORTED_MODULE_6__["default"]
@@ -36369,10 +36378,10 @@ var TodoDetail = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(TodoDetail);
 
-  function TodoDetail() {
+  function TodoDetail(props) {
     _classCallCheck(this, TodoDetail);
 
-    return _super.apply(this, arguments);
+    return _super.call(this, props);
   }
 
   _createClass(TodoDetail, [{
@@ -36388,13 +36397,13 @@ var TodoDetail = /*#__PURE__*/function (_Component) {
         className: "detail-title"
       }, "\u25A0 Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "detail-title-name"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Test1"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, this.props.todos[0].title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "detail-content-area"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "detail-content"
       }, "\u25A0 Content"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "detail-content-name"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Test1")))));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.todos[0].content)))));
     }
   }]);
 
@@ -36402,7 +36411,13 @@ var TodoDetail = /*#__PURE__*/function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
-TodoDetail.propsTypes = {};
+TodoDetail.propsTypes = {
+  todos: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
+    id: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired,
+    title: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
+    content: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
+  }).isRequired).isRequired
+};
 
 /***/ }),
 
@@ -36579,7 +36594,8 @@ var TodoList = /*#__PURE__*/function (_Component) {
 TodoList.propTypes = {
   todos: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.shape({
     id: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number.isRequired,
-    title: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string.isRequired
+    title: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string.isRequired,
+    content: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string.isRequired
   }).isRequired).isRequired,
   onClickUpdate: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired,
   onClickDelete: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
@@ -36651,6 +36667,32 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(masStateToProps, mapDispatchToProps)(_components_TodoAdd__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./resources/js/containers/TodoDetail.jsx":
+/*!************************************************!*\
+  !*** ./resources/js/containers/TodoDetail.jsx ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components_TodoDetail__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/TodoDetail */ "./resources/js/components/TodoDetail.jsx");
+
+
+
+var masStateToProps = function masStateToProps(state, ownProps) {
+  return {
+    todos: state.reducer.tasksReducer.todos.filter(function (todo) {
+      return todo.id === Number(ownProps.todoId);
+    })
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(masStateToProps)(_components_TodoDetail__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 

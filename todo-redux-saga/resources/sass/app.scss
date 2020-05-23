@@ -216,12 +216,13 @@ textarea::placeholder {
     height: 260px;
     position: relative;
     margin-bottom: 10px;
-    span {
-        display: block;
+    p {
+        height: 240px;
         margin-top: 8px;
         margin-left: 10px;
         font-size: 24px;
         font-family: "Times New Roman", Times, serif;
         color: #fff;
+        word-break: break-all;
     }
 }

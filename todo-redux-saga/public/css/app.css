@@ -250,12 +250,13 @@ textarea::placeholder {
   margin-bottom: 10px;
 }
 
-.detail-content-name span {
-  display: block;
+.detail-content-name p {
+  height: 240px;
   margin-top: 8px;
   margin-left: 10px;
   font-size: 24px;
   font-family: "Times New Roman", Times, serif;
   color: #fff;
+  word-break: break-all;
 }
 

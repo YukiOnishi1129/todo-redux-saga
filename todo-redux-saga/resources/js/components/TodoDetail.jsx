@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 export default class TodoDetail extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         return (
             <React.Fragment>
@@ -10,13 +13,13 @@ export default class TodoDetail extends Component {
                     <div className="detail-titele-area">
                         <h2 className="detail-title">■ Title</h2>
                         <div className="detail-title-name">
-                            <span>Test1</span>
+                            <span>{this.props.todos[0].title}</span>
                         </div>
                     </div>
                     <div className="detail-content-area">
                         <h2 className="detail-content">■ Content</h2>
                         <div className="detail-content-name">
-                            <span>Test1</span>
+                            <p>{this.props.todos[0].content}</p>
                         </div>
                     </div>
                 </section>
@@ -25,4 +28,12 @@ export default class TodoDetail extends Component {
     }
 }
 
-TodoDetail.propsTypes = {};
+TodoDetail.propsTypes = {
+    todos: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            title: PropTypes.string.isRequired,
+            content: PropTypes.string.isRequired
+        }).isRequired
+    ).isRequired
+};

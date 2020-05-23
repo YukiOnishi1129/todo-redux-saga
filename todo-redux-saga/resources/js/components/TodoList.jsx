@@ -51,7 +51,8 @@ TodoList.propTypes = {
     todos: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number.isRequired,
-            title: PropTypes.string.isRequired
+            title: PropTypes.string.isRequired,
+            content: PropTypes.string.isRequired
         }).isRequired
     ).isRequired,
     onClickUpdate: PropTypes.func.isRequired,
