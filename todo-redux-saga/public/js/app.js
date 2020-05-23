@@ -35723,12 +35723,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateTodo", function() { return updateTodo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteTodo", function() { return deleteTodo; });
 // ActionCreatorの定義
-var addTodo = function addTodo(id, title) {
+var addTodo = function addTodo(id, title, content) {
   return {
     type: "ADD",
     payload: {
       id: id,
-      title: title
+      title: title,
+      content: content
     }
   };
 };
@@ -36154,13 +36155,51 @@ var TodoAdd = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(TodoAdd);
 
-  function TodoAdd() {
+  function TodoAdd(props) {
+    var _this;
+
     _classCallCheck(this, TodoAdd);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      title: "",
+      content: ""
+    };
+    _this.handleTitle = _this.handleTitle.bind(_assertThisInitialized(_this));
+    _this.handleContent = _this.handleContent.bind(_assertThisInitialized(_this));
+    _this.onAddTodo = _this.onAddTodo.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(TodoAdd, [{
+    key: "handleTitle",
+    value: function handleTitle(e) {
+      this.setState({
+        title: e.target.value
+      });
+    }
+  }, {
+    key: "handleContent",
+    value: function handleContent(e) {
+      this.setState({
+        content: e.target.value
+      });
+    }
+  }, {
+    key: "onAddTodo",
+    value: function onAddTodo() {
+      if (this.state.title !== "" && this.state.content !== "") {
+        this.props.onCreateTodo(this.props.uniqueId + 1, this.state.title, this.state.content);
+        window.alert("Todoを新規作成しました");
+        this.setState({
+          title: "",
+          content: ""
+        });
+      } else {
+        window.alert("未入力ではTodoを作成できません");
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
@@ -36169,16 +36208,20 @@ var TodoAdd = /*#__PURE__*/function (_Component) {
         className: "common-area"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        placeholder: "New Todo Title"
+        placeholder: "New Todo Title",
+        value: this.state.title,
+        onChange: this.handleTitle
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
-        name: "comment",
         cols: "30",
         rows: "10",
-        placeholder: "New Todo Comment"
+        value: this.state.content,
+        placeholder: "New Todo Comment",
+        onChange: this.handleContent
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "add-button-area"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "add-button"
+        className: "add-button",
+        onClick: this.onAddTodo
       }, "Add"))));
     }
   }]);
@@ -36187,7 +36230,10 @@ var TodoAdd = /*#__PURE__*/function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
-TodoAdd.propsTypes = {};
+TodoAdd.propsTypes = {
+  uniqueId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired,
+  onCreateTodo: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired
+};
 
 /***/ }),
 
@@ -36584,8 +36630,8 @@ var masStateToProps = function masStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    onCreateTodo: function onCreateTodo(todo) {
-      dispatch();
+    onCreateTodo: function onCreateTodo(id, title, content) {
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_1__["addTodo"])(id, title, content));
     }
   };
 };
@@ -36724,7 +36770,8 @@ function tasksReducer() {
       return Object.assign({}, state, {
         todos: state.todos.concat({
           id: action.payload.id,
-          title: action.payload.title
+          title: action.payload.title,
+          content: action.payload.content
         }),
         uniqueId: action.payload.id
       });

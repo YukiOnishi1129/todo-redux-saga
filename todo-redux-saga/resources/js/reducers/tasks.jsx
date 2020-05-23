@@ -48,7 +48,8 @@ export default function tasksReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 todos: state.todos.concat({
                     id: action.payload.id,
-                    title: action.payload.title
+                    title: action.payload.title,
+                    content: action.payload.content
                 }),
                 uniqueId: action.payload.id
             });

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { searchTodo } from "../actions";
+import { addTodo } from "../actions";
 import TodoAdd from "../components/TodoAdd";
 
 const masStateToProps = state => {
@@ -10,8 +10,8 @@ const masStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onCreateTodo: todo => {
-            dispatch();
+        onCreateTodo: (id, title, content) => {
+            dispatch(addTodo(id, title, content));
         }
     };
 };

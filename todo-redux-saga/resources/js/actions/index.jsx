@@ -1,9 +1,10 @@
 // ActionCreatorの定義
-export const addTodo = (id, title) => ({
+export const addTodo = (id, title, content) => ({
     type: "ADD",
     payload: {
         id,
-        title
+        title,
+        content
     }
 });
 
