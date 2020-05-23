@@ -70,6 +70,7 @@ export default class Todo extends Component {
         // );
 
         const toDetail = id => `/detail/${id}`;
+        const toEdit = id => `/edit/${id}`;
         return (
             <li className="todo">
                 <span className="todo-task" onClick={this.handleClickEditForm}>
@@ -80,7 +81,7 @@ export default class Todo extends Component {
                     <i className="far fa-file-alt fa-lg"></i>
                 </Link>
 
-                <Link to="/edit">
+                <Link to={toEdit(this.props.id)}>
                     <i className="far fa-edit fa-lg"></i>
                 </Link>
 

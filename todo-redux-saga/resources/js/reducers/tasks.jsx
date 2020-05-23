@@ -17,11 +17,12 @@ const initialState = {
 };
 
 // Todo更新用の関数
-const UpdateTodo = (todos, targetId, title) => {
+const UpdateTodo = (todos, targetId, title, content) => {
     return todos.map(todo => {
         if (todo.id === targetId) {
             return Object.assign({}, todo, {
-                title: title
+                title: title,
+                content: content
             });
         }
         return todo;
@@ -77,7 +78,8 @@ export default function tasksReducer(state = initialState, action) {
                 todos: UpdateTodo(
                     state.todos,
                     action.payload.id,
-                    action.payload.title
+                    action.payload.title,
+                    action.payload.content
                 )
             });
         //   return Object.assign({}, state, {

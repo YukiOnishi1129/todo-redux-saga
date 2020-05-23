@@ -35741,12 +35741,13 @@ var searchTodo = function searchTodo(text) {
     }
   };
 };
-var updateTodo = function updateTodo(id, title) {
+var updateTodo = function updateTodo(id, title, content) {
   return {
     type: "UPDATE",
     payload: {
       id: id,
-      title: title
+      title: title,
+      content: content
     }
   };
 };
@@ -36082,6 +36083,10 @@ var Todo = /*#__PURE__*/function (_Component) {
         return "/detail/".concat(id);
       };
 
+      var toEdit = function toEdit(id) {
+        return "/edit/".concat(id);
+      };
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "todo"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -36092,7 +36097,7 @@ var Todo = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "far fa-file-alt fa-lg"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/edit"
+        to: toEdit(this.props.id)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "far fa-edit fa-lg"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -36124,11 +36129,11 @@ Todo.propTypes = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TodoAdd; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36150,6 +36155,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -36198,7 +36204,9 @@ var TodoAdd = /*#__PURE__*/function (_Component) {
         this.setState({
           title: "",
           content: ""
-        });
+        }); // TOPページへリダイレクト
+
+        this.props.history.push("/");
       } else {
         window.alert("未入力ではTodoを作成できません");
       }
@@ -36233,11 +36241,11 @@ var TodoAdd = /*#__PURE__*/function (_Component) {
   return TodoAdd;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-
 TodoAdd.propsTypes = {
-  uniqueId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired,
-  onCreateTodo: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired
+  uniqueId: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.number.isRequired,
+  onCreateTodo: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
 };
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(TodoAdd));
 
 /***/ }),
 
@@ -36258,7 +36266,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _containers_TodoList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/TodoList */ "./resources/js/containers/TodoList.jsx");
 /* harmony import */ var _containers_TodoAdd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../containers/TodoAdd */ "./resources/js/containers/TodoAdd.jsx");
 /* harmony import */ var _containers_TodoDetail__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../containers/TodoDetail */ "./resources/js/containers/TodoDetail.jsx");
-/* harmony import */ var _components_TodoEdit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/TodoEdit */ "./resources/js/components/TodoEdit.jsx");
+/* harmony import */ var _containers_TodoEdit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../containers/TodoEdit */ "./resources/js/containers/TodoEdit.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36321,8 +36329,13 @@ var TodoApp = /*#__PURE__*/function (_Component) {
           });
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-        path: "/edit",
-        component: _components_TodoEdit__WEBPACK_IMPORTED_MODULE_6__["default"]
+        path: "/edit/:id",
+        render: function render(_ref2) {
+          var match = _ref2.match;
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TodoEdit__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            todoId: match.params.id
+          });
+        }
       })));
     }
   }]);
@@ -36412,6 +36425,7 @@ var TodoDetail = /*#__PURE__*/function (_Component) {
 
 
 TodoDetail.propsTypes = {
+  todoId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired,
   todos: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
     id: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired,
     title: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
@@ -36430,11 +36444,11 @@ TodoDetail.propsTypes = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TodoEdit; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36460,31 +36474,94 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var TodoEdit = /*#__PURE__*/function (_Component) {
   _inherits(TodoEdit, _Component);
 
   var _super = _createSuper(TodoEdit);
 
-  function TodoEdit() {
+  function TodoEdit(props) {
+    var _this;
+
     _classCallCheck(this, TodoEdit);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      title: props.todos[0].title,
+      content: props.todos[0].content
+    };
+    _this.handleTitle = _this.handleTitle.bind(_assertThisInitialized(_this));
+    _this.handleContent = _this.handleContent.bind(_assertThisInitialized(_this));
+    _this.onEditTodo = _this.onEditTodo.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(TodoEdit, [{
+    key: "handleTitle",
+    value: function handleTitle(e) {
+      this.setState({
+        title: e.target.value
+      });
+    }
+  }, {
+    key: "handleContent",
+    value: function handleContent(e) {
+      this.setState({
+        content: e.target.value
+      });
+    }
+  }, {
+    key: "onEditTodo",
+    value: function onEditTodo() {
+      if (this.state.title !== "" && this.state.content !== "") {
+        this.props.onUpdateTodo(this.props.todos[0].id, this.state.title, this.state.content);
+        window.alert("Todoを編集しました"); // TOPページへリダイレクト
+
+        this.props.history.push("/");
+      } else {
+        window.alert("未入力ではTodoを編集できません");
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "title"
-      }, "Todo Edit"));
+      }, "Todo Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "common-area"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Edit Todo Title",
+        value: this.state.title,
+        onChange: this.handleTitle
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        cols: "30",
+        rows: "10",
+        value: this.state.content,
+        placeholder: "Edit Todo Comment",
+        onChange: this.handleContent
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-button-area"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "edit-button",
+        onClick: this.onEditTodo
+      }, "Edit"))));
     }
   }]);
 
   return TodoEdit;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-
-TodoEdit.propsTypes = {};
+TodoEdit.propsTypes = {
+  todoId: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.number.isRequired,
+  todos: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.shape({
+    id: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.number.isRequired,
+    title: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
+    content: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired
+  }).isRequired).isRequired,
+  onUpdateTodo: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(TodoEdit));
 
 /***/ }),
 
@@ -36696,6 +36773,42 @@ var masStateToProps = function masStateToProps(state, ownProps) {
 
 /***/ }),
 
+/***/ "./resources/js/containers/TodoEdit.jsx":
+/*!**********************************************!*\
+  !*** ./resources/js/containers/TodoEdit.jsx ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./resources/js/actions/index.jsx");
+/* harmony import */ var _components_TodoEdit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/TodoEdit */ "./resources/js/components/TodoEdit.jsx");
+
+
+
+
+var masStateToProps = function masStateToProps(state, ownProps) {
+  return {
+    todos: state.reducer.tasksReducer.todos.filter(function (todo) {
+      return todo.id === Number(ownProps.todoId);
+    })
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    onUpdateTodo: function onUpdateTodo(id, title, content) {
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_1__["updateTodo"])(id, title, content));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(masStateToProps, mapDispatchToProps)(_components_TodoEdit__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
 /***/ "./resources/js/containers/TodoList.jsx":
 /*!**********************************************!*\
   !*** ./resources/js/containers/TodoList.jsx ***!
@@ -36790,11 +36903,12 @@ var initialState = {
 
 }; // Todo更新用の関数
 
-var UpdateTodo = function UpdateTodo(todos, targetId, title) {
+var UpdateTodo = function UpdateTodo(todos, targetId, title, content) {
   return todos.map(function (todo) {
     if (todo.id === targetId) {
       return Object.assign({}, todo, {
-        title: title
+        title: title,
+        content: content
       });
     }
 
@@ -36852,7 +36966,7 @@ function tasksReducer() {
 
     case "UPDATE":
       return Object.assign({}, state, {
-        todos: UpdateTodo(state.todos, action.payload.id, action.payload.title)
+        todos: UpdateTodo(state.todos, action.payload.id, action.payload.title, action.payload.content)
       });
     //   return Object.assign({}, state, {
     //     todos: state.todos.map((todo) => {

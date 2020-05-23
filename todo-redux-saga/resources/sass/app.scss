@@ -102,6 +102,24 @@ textarea::placeholder {
     border-radius: 5px;
 }
 
+.edit-button-area {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.edit-button {
+    cursor: pointer;
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    background: #ff9900;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    font-family: "Times New Roman", Times, serif;
+    border-radius: 5px;
+}
+
 .todolist {
     padding: 0;
 }

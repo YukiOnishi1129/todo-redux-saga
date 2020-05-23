@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
 import PropTypes from "prop-types";
 
-export default class TodoAdd extends Component {
+class TodoAdd extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,6 +38,8 @@ export default class TodoAdd extends Component {
                 title: "",
                 content: ""
             });
+            // TOPページへリダイレクト
+            this.props.history.push("/");
         } else {
             window.alert("未入力ではTodoを作成できません");
         }
@@ -75,3 +78,5 @@ TodoAdd.propsTypes = {
     uniqueId: PropTypes.number.isRequired,
     onCreateTodo: PropTypes.func.isRequired
 };
+
+export default withRouter(TodoAdd);

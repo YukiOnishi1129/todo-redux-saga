@@ -15,11 +15,12 @@ export const searchTodo = text => ({
     }
 });
 
-export const updateTodo = (id, title) => ({
+export const updateTodo = (id, title, content) => ({
     type: "UPDATE",
     payload: {
         id,
-        title
+        title,
+        content
     }
 });
 

@@ -29,6 +29,7 @@ export default class TodoDetail extends Component {
 }
 
 TodoDetail.propsTypes = {
+    todoId: PropTypes.number.isRequired,
     todos: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number.isRequired,

@@ -4,7 +4,7 @@ import Nav from "../components/Nav";
 import TodoList from "../containers/TodoList";
 import TodoAdd from "../containers/TodoAdd";
 import TodoDetail from "../containers/TodoDetail";
-import TodoEdit from "../components/TodoEdit";
+import TodoEdit from "../containers/TodoEdit";
 
 export default class TodoApp extends Component {
     render() {
@@ -20,7 +20,12 @@ export default class TodoApp extends Component {
                             <TodoDetail todoId={match.params.id} />
                         )}
                     ></Route>
-                    <Route path="/edit" component={TodoEdit}></Route>
+                    <Route
+                        path="/edit/:id"
+                        render={({ match }) => (
+                            <TodoEdit todoId={match.params.id} />
+                        )}
+                    ></Route>
                 </Switch>
             </div>
         );
