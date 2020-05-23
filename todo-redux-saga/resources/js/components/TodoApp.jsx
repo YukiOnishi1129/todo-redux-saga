@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
+import Nav from "../components/Nav";
 import TodoList from "../containers/TodoList";
 import TodoAdd from "../containers/TodoAdd";
 import TodoDetail from "../components/TodoDetail";
@@ -9,14 +10,7 @@ export default class TodoApp extends Component {
     render() {
         return (
             <div className="wrapper">
-                <ul>
-                    <li>
-                        <Link to="/">TOP</Link>
-                    </li>
-                    <li>
-                        <Link to="/new">CREATE</Link>
-                    </li>
-                </ul>
+                <Nav />
                 <Switch>
                     <Route exact path="/" component={TodoList}></Route>
                     <Route path="/new" component={TodoAdd}></Route>

@@ -67,6 +67,41 @@ input[type="text"]::placeholder {
     color: #c0c0c0;
 }
 
+textarea {
+    color: white;
+    border: none;
+    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+    border-radius: 5px;
+}
+
+textarea::placeholder {
+    color: #c0c0c0;
+}
+
+.add-button-area {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.add-button {
+    cursor: pointer;
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    background: #ff9900;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    font-family: "Times New Roman", Times, serif;
+    border-radius: 5px;
+}
+
 .todolist {
     padding: 0;
 }
@@ -111,4 +146,33 @@ input[type="text"]::placeholder {
 
 .fa-trash-alt {
     right: 10px;
+}
+
+.link-area {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0;
+}
+
+.link-box {
+    list-style: none;
+    background: white;
+    border-radius: 5px;
+    width: 40%;
+    height: 60px;
+    line-height: 60px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.link-box:hover {
+    background: rgb(146, 142, 142);
+}
+
+.link {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: rgb(3, 3, 3);
+    font-size: 24px;
+    font-weight: bold;
 }

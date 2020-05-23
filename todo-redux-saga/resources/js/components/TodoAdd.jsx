@@ -6,10 +6,18 @@ export default class TodoAdd extends Component {
         return (
             <React.Fragment>
                 <h1 className="title">Todo Add</h1>
-                <input type="text" placeholder="New Todo Title" />
-                <div>
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
-                </div>
+                <section className="common-area">
+                    <input type="text" placeholder="New Todo Title" />
+                    <textarea
+                        name="comment"
+                        cols="30"
+                        rows="10"
+                        placeholder="New Todo Comment"
+                    ></textarea>
+                    <div className="add-button-area">
+                        <button className="add-button">Add</button>
+                    </div>
+                </section>
             </React.Fragment>
         );
     }
