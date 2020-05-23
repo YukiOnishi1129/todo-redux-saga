@@ -51,6 +51,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        return response()->view('index');
+        return parent::render($request, $e);
     }
 }
