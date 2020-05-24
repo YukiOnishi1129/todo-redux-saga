@@ -12,8 +12,7 @@ export default class TodoList extends Component {
     }
 
     async componentDidMount() {
-        const data = await getTodosApi();
-        console.log(data);
+        await this.props.initTodos();
     }
 
     // Todo更新
@@ -61,6 +60,7 @@ TodoList.propTypes = {
             content: PropTypes.string.isRequired
         }).isRequired
     ).isRequired,
+    initTodos: PropTypes.func.isRequired,
     onClickUpdate: PropTypes.func.isRequired,
     onClickDelete: PropTypes.func.isRequired
 };

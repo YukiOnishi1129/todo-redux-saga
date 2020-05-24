@@ -19,7 +19,7 @@ class ApiController extends Controller
      */
     public function index()
     {
-        $todos = Todo::all();
+        $todos = Todo::select(['id', 'title', 'content'])->get();
         return response()->json(['todos' => $todos]);
     }
 

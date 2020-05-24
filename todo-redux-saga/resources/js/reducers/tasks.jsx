@@ -1,17 +1,8 @@
 // 初期状態の設定
 const initialState = {
-    todos: [
-        {
-            id: 1,
-            title: "Task1",
-            content: "Task1 content"
-        },
-        {
-            id: 2,
-            title: "Task2",
-            content: "Task2 content"
-        }
-    ],
+    todos: [],
+    isLoading: false, // API接続中
+    isApiError: false, // APIエラー発生の有無
     uniqueId: 2, // todoが初期値で2つあるため、todo追加した際のidの採番を3から開始する
     searchKeyWord: "" //検索キーワード
 };
@@ -37,15 +28,25 @@ const removeTodo = (todos, targetId) => {
 // Reducerの定義
 export default function tasksReducer(state = initialState, action) {
     switch (action.type) {
+        case "INIT":
+            return Object.assign({}, state, {
+                isLoading: true
+            });
+        case "INIT_SUCCEEDED":
+            return Object.assign({}, state, {
+                todos: action.todos,
+                isLoading: false
+            });
+        case "API_ERROR":
+            return Object.assign({}, state, {
+                isApiError: true,
+                isLoading: false
+            });
+        case "RESET_ERROR":
+            return Object.assign({}, state, {
+                isApiError: false
+            });
         case "ADD":
-            // stateを変更する際は再描画させるため
-            // stateの前後で変更があったことを通知する必要がある。
-            // state = action.payload.dataなど、直接代入させると変更が通知されない
-            // (参照渡しであるため)
-            // よって、Object.assigまたはspread構文で更新する
-            // 現在のstateとactionの値をマージして新しいstateを返す
-
-            // Object.assignの記述方法
             return Object.assign({}, state, {
                 todos: state.todos.concat({
                     id: action.payload.id,

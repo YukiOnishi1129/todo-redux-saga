@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { updateTodo, deleteTodo } from "../actions";
+import Actions from "../actions/actions";
 import TodoList from "../components/TodoList";
 
 // アロー関数にするとthisのスコープが変わるため、functionの記法にしている
@@ -18,13 +19,18 @@ const mapStateToProps = state => {
                   state.reducer.tasksReducer
               )
             : state.reducer.tasksReducer.todos,
-        uniqueId: state.reducer.tasksReducer.uniqueId
+        uniqueId: state.reducer.tasksReducer.uniqueId,
+        isApiError: state.reducer.tasksReducer.isApiError,
+        isLoading: state.reducer.tasksReducer.isLoading
     };
 };
 
 // mapDispatchToProps
 const mapDispatchToProps = dispatch => {
     return {
+        initTodos: () => {
+            dispatch(Actions.init());
+        },
         onClickUpdate: (id, title) => {
             dispatch(updateTodo(id, title));
         },
