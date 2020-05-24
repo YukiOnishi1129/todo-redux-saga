@@ -33,7 +33,6 @@ class ApiController extends Controller
         $todos->title = $request->title;
         $todos->content = $request->content;
         $todos->save();
-        return redirect('api/spa/');
     }
 
     /**
@@ -55,7 +54,6 @@ class ApiController extends Controller
         $todo->title = $request->title;
         $todo->content = $request->content;
         $todo->save();
-        return redirect('api/spa/' . $id);
     }
 
     /**
@@ -65,6 +63,5 @@ class ApiController extends Controller
     {
         $todo = Todo::find($id);
         $todo->delete();
-        return redirect('api');
     }
 }

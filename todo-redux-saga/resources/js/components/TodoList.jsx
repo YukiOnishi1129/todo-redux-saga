@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SearchTodo from "../containers/SearchTodo";
 import Todo from "./Todo";
+import { getTodosApi } from "../network/api";
 import PropTypes from "prop-types";
 
 export default class TodoList extends Component {
@@ -8,6 +9,11 @@ export default class TodoList extends Component {
         super(props);
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+    }
+
+    async componentDidMount() {
+        const data = await getTodosApi();
+        console.log(data);
     }
 
     // Todo更新
