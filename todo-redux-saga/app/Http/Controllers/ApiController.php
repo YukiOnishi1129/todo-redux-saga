@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Todo;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -19,8 +20,12 @@ class ApiController extends Controller
      */
     public function index()
     {
-        $todos = Todo::select(['id', 'title', 'content'])->get();
-        return response()->json(['todos' => $todos]);
+        try {
+            $todos = Todo::select(['id', 'title', 'content'])->get();
+            return response()->json(['todos' => $todos]);
+        } catch (Exception $error) {
+            return $error;
+        }
     }
 
     /**
@@ -28,11 +33,15 @@ class ApiController extends Controller
      */
     public function store(Request $request)
     {
-        // Log::info('テスト22222');
-        $todos = new Todo;
-        $todos->title = $request->title;
-        $todos->content = $request->content;
-        $todos->save();
+        try {
+            $todos = new Todo;
+            $todos->title = $request->title;
+            $todos->content = $request->content;
+            $todos->save();
+            return response()->json(['createFlg' => true]);
+        } catch (Exception $error) {
+            return $error;
+        }
     }
 
     /**

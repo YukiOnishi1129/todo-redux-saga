@@ -12,6 +12,7 @@ class TodoAdd extends Component {
         this.handleTitle = this.handleTitle.bind(this);
         this.handleContent = this.handleContent.bind(this);
         this.onAddTodo = this.onAddTodo.bind(this);
+        console.log(props);
     }
 
     handleTitle(e) {
@@ -26,20 +27,18 @@ class TodoAdd extends Component {
         });
     }
 
-    onAddTodo() {
+    async onAddTodo() {
+        console.log(this.props.history);
         if (this.state.title !== "" && this.state.content !== "") {
-            this.props.onCreateTodo(
-                this.props.uniqueId + 1,
+            await this.props.onCreateTodo(
                 this.state.title,
-                this.state.content
+                this.state.content,
+                this.props.history
             );
-            window.alert("Todoを新規作成しました");
             this.setState({
                 title: "",
                 content: ""
             });
-            // TOPページへリダイレクト
-            this.props.history.push("/");
         } else {
             window.alert("未入力ではTodoを作成できません");
         }
@@ -75,8 +74,10 @@ class TodoAdd extends Component {
 }
 
 TodoAdd.propsTypes = {
-    uniqueId: PropTypes.number.isRequired,
-    onCreateTodo: PropTypes.func.isRequired
+    isApiError: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    onCreateTodo: PropTypes.func.isRequired,
+    onResetErrorFlg: PropTypes.func.isRequired
 };
 
 export default withRouter(TodoAdd);

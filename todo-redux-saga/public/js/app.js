@@ -41588,6 +41588,20 @@ __webpack_require__.r(__webpack_exports__);
       todos: todos
     };
   },
+  create: function create(title, content, history) {
+    return {
+      type: "CREATE",
+      title: title,
+      content: content,
+      history: history
+    };
+  },
+  createSuccess: function createSuccess(createFlg) {
+    return {
+      type: "CREATE_SUCCEEDED",
+      createFlg: createFlg
+    };
+  },
   apiError: function apiError() {
     return {
       type: "API_ERROR",
@@ -42052,12 +42066,20 @@ Todo.propTypes = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+
+
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -42101,6 +42123,7 @@ var TodoAdd = /*#__PURE__*/function (_Component) {
     _this.handleTitle = _this.handleTitle.bind(_assertThisInitialized(_this));
     _this.handleContent = _this.handleContent.bind(_assertThisInitialized(_this));
     _this.onAddTodo = _this.onAddTodo.bind(_assertThisInitialized(_this));
+    console.log(props);
     return _this;
   }
 
@@ -42120,41 +42143,68 @@ var TodoAdd = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "onAddTodo",
-    value: function onAddTodo() {
-      if (this.state.title !== "" && this.state.content !== "") {
-        this.props.onCreateTodo(this.props.uniqueId + 1, this.state.title, this.state.content);
-        window.alert("Todoを新規作成しました");
-        this.setState({
-          title: "",
-          content: ""
-        }); // TOPページへリダイレクト
+    value: function () {
+      var _onAddTodo = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                console.log(this.props.history);
 
-        this.props.history.push("/");
-      } else {
-        window.alert("未入力ではTodoを作成できません");
+                if (!(this.state.title !== "" && this.state.content !== "")) {
+                  _context.next = 7;
+                  break;
+                }
+
+                _context.next = 4;
+                return this.props.onCreateTodo(this.state.title, this.state.content, this.props.history);
+
+              case 4:
+                this.setState({
+                  title: "",
+                  content: ""
+                });
+                _context.next = 8;
+                break;
+
+              case 7:
+                window.alert("未入力ではTodoを作成できません");
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function onAddTodo() {
+        return _onAddTodo.apply(this, arguments);
       }
-    }
+
+      return onAddTodo;
+    }()
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
         className: "title"
-      }, "Todo Add"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      }, "Todo Add"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
         className: "common-area"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         type: "text",
         placeholder: "New Todo Title",
         value: this.state.title,
         onChange: this.handleTitle
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", {
         cols: "30",
         rows: "10",
         value: this.state.content,
         placeholder: "New Todo Comment",
         onChange: this.handleContent
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "add-button-area"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         className: "add-button",
         onClick: this.onAddTodo
       }, "Add"))));
@@ -42162,13 +42212,15 @@ var TodoAdd = /*#__PURE__*/function (_Component) {
   }]);
 
   return TodoAdd;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 TodoAdd.propsTypes = {
-  uniqueId: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.number.isRequired,
-  onCreateTodo: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
+  isApiError: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool.isRequired,
+  isLoading: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool.isRequired,
+  onCreateTodo: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired,
+  onResetErrorFlg: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
 };
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(TodoAdd));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(TodoAdd));
 
 /***/ }),
 
@@ -42683,26 +42735,33 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./resources/js/actions/index.jsx");
-/* harmony import */ var _components_TodoAdd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/TodoAdd */ "./resources/js/components/TodoAdd.jsx");
+/* harmony import */ var _actions_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/actions */ "./resources/js/actions/actions.jsx");
+/* harmony import */ var _components_TodoAdd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/TodoAdd */ "./resources/js/components/TodoAdd.jsx");
+
 
 
 
 
 var masStateToProps = function masStateToProps(state) {
   return {
-    uniqueId: state.reducer.tasksReducer.uniqueId
+    isApiError: state.reducer.tasksReducer.isApiError,
+    isLoading: state.reducer.tasksReducer.isLoading
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    onCreateTodo: function onCreateTodo(id, title, content) {
-      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_1__["addTodo"])(id, title, content));
+    onCreateTodo: function onCreateTodo(title, content, history) {
+      // sagaにてhistory.pushを使用するため、historyを渡している
+      dispatch(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["default"].create(title, content, history));
+    },
+    onResetErrorFlg: function onResetErrorFlg() {
+      dispatch(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["default"].resetError());
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(masStateToProps, mapDispatchToProps)(_components_TodoAdd__WEBPACK_IMPORTED_MODULE_2__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(masStateToProps, mapDispatchToProps)(_components_TodoAdd__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
 
@@ -42858,6 +42917,11 @@ var createTodoApi = function createTodoApi(title, content) {
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
     title: title,
     content: content
+  }).then(function (response) {
+    var createFlg = response.data.createFlg;
+    return {
+      createFlg: createFlg
+    };
   })["catch"](function (error) {
     return {
       error: error
@@ -42965,6 +43029,17 @@ function tasksReducer() {
     case "INIT_SUCCEEDED":
       return Object.assign({}, state, {
         todos: action.todos,
+        uniqueId: action.todos.lenght + 1,
+        isLoading: false
+      });
+
+    case "CREATE":
+      return Object.assign({}, state, {
+        isLoading: true
+      });
+
+    case "CREATE_SUCCEEDED":
+      return Object.assign({}, state, {
         isLoading: false
       });
 
@@ -43034,6 +43109,87 @@ function tasksReducer() {
 
 /***/ }),
 
+/***/ "./resources/js/sagas/create.jsx":
+/*!***************************************!*\
+  !*** ./resources/js/sagas/create.jsx ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _network_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../network/api */ "./resources/js/network/api.jsx");
+/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-saga/effects */ "./node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
+
+
+var _marked = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(createProduct);
+
+
+
+
+function createProduct(action) {
+  var _yield$call, createFlg, error;
+
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function createProduct$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["call"])(_network_api__WEBPACK_IMPORTED_MODULE_1__["createTodoApi"], action.title, action.content);
+
+        case 2:
+          _yield$call = _context.sent;
+          createFlg = _yield$call.createFlg;
+          error = _yield$call.error;
+
+          if (!(createFlg && !error)) {
+            _context.next = 11;
+            break;
+          }
+
+          _context.next = 8;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["put"])({
+            type: "CREATE_SUCCEEDED",
+            createFlg: createFlg
+          });
+
+        case 8:
+          alert("Todoを新規作成しました");
+          _context.next = 16;
+          break;
+
+        case 11:
+          alert("エラーが発生しました。");
+          _context.next = 14;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["put"])({
+            type: "API_ERROR"
+          });
+
+        case 14:
+          _context.next = 16;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["put"])({
+            type: "RESET_ERROR"
+          });
+
+        case 16:
+          // TIPページへリダイレクト
+          action.history.push("/");
+
+        case 17:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _marked);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["takeLatest"])("CREATE", createProduct)]); // redux-sagaにてalertの出し方
+// https://akfm.dev/blog/2020-02-28/redux-saga.html
+
+/***/ }),
+
 /***/ "./resources/js/sagas/index.jsx":
 /*!**************************************!*\
   !*** ./resources/js/sagas/index.jsx ***!
@@ -43048,6 +43204,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-saga/effects */ "./node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
 /* harmony import */ var _sagas_init__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../sagas/init */ "./resources/js/sagas/init.jsx");
+/* harmony import */ var _sagas_create__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../sagas/create */ "./resources/js/sagas/create.jsx");
 
 
 var _marked = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(rootSaga);
@@ -43066,13 +43223,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+
 function rootSaga() {
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function rootSaga$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])(_toConsumableArray(_sagas_init__WEBPACK_IMPORTED_MODULE_2__["default"]));
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([].concat(_toConsumableArray(_sagas_init__WEBPACK_IMPORTED_MODULE_2__["default"]), _toConsumableArray(_sagas_create__WEBPACK_IMPORTED_MODULE_3__["default"])));
 
         case 2:
         case "end":
@@ -43080,7 +43238,8 @@ function rootSaga() {
       }
     }
   }, _marked);
-}
+} // redux-sagaの記事
+// https://www.kaitoy.xyz/2018/10/07/creating-react-redux-app-from-scratch-08/
 
 /***/ }),
 
@@ -43119,7 +43278,7 @@ function initProduct() {
           todos = _yield$call.todos;
           error = _yield$call.error;
 
-          if (!todos) {
+          if (!(todos && !error)) {
             _context.next = 10;
             break;
           }
@@ -43137,7 +43296,7 @@ function initProduct() {
         case 10:
           _context.next = 12;
           return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["put"])({
-            API_ERROR: API_ERROR
+            type: "API_ERROR"
           });
 
         case 12:
@@ -43148,7 +43307,7 @@ function initProduct() {
   }, _marked);
 }
 
-/* harmony default export */ __webpack_exports__["default"] = ([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["takeEvery"])("INIT", initProduct)]);
+/* harmony default export */ __webpack_exports__["default"] = ([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["takeLatest"])("INIT", initProduct)]);
 
 /***/ }),
 
@@ -43176,11 +43335,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function createStore(history) {
-  var sagaMiddleware = Object(redux_saga__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  // Saga ミドルウェアを作成する
+  var sagaMiddleware = Object(redux_saga__WEBPACK_IMPORTED_MODULE_2__["default"])(); // Store にマウントする
+
   var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
     reducer: _reducers__WEBPACK_IMPORTED_MODULE_4__["default"],
     router: Object(connected_react_router__WEBPACK_IMPORTED_MODULE_1__["connectRouter"])(history)
-  }), Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(Object(connected_react_router__WEBPACK_IMPORTED_MODULE_1__["routerMiddleware"])(history), redux_logger__WEBPACK_IMPORTED_MODULE_3___default.a, sagaMiddleware));
+  }), Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(Object(connected_react_router__WEBPACK_IMPORTED_MODULE_1__["routerMiddleware"])(history), redux_logger__WEBPACK_IMPORTED_MODULE_3___default.a, sagaMiddleware)); // Saga を起動する
+
   sagaMiddleware.run(_sagas___WEBPACK_IMPORTED_MODULE_5__["default"]);
   return store;
 }

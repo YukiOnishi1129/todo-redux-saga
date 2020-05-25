@@ -35,6 +35,15 @@ export default function tasksReducer(state = initialState, action) {
         case "INIT_SUCCEEDED":
             return Object.assign({}, state, {
                 todos: action.todos,
+                uniqueId: action.todos.lenght + 1,
+                isLoading: false
+            });
+        case "CREATE":
+            return Object.assign({}, state, {
+                isLoading: true
+            });
+        case "CREATE_SUCCEEDED":
+            return Object.assign({}, state, {
                 isLoading: false
             });
         case "API_ERROR":

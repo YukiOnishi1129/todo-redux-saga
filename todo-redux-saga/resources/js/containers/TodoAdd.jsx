@@ -1,17 +1,23 @@
 import { connect } from "react-redux";
 import { addTodo } from "../actions";
+import Actions from "../actions/actions";
 import TodoAdd from "../components/TodoAdd";
 
 const masStateToProps = state => {
     return {
-        uniqueId: state.reducer.tasksReducer.uniqueId
+        isApiError: state.reducer.tasksReducer.isApiError,
+        isLoading: state.reducer.tasksReducer.isLoading
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onCreateTodo: (id, title, content) => {
-            dispatch(addTodo(id, title, content));
+        onCreateTodo: (title, content, history) => {
+            // sagaにてhistory.pushを使用するため、historyを渡している
+            dispatch(Actions.create(title, content, history));
+        },
+        onResetErrorFlg: () => {
+            dispatch(Actions.resetError());
         }
     };
 };

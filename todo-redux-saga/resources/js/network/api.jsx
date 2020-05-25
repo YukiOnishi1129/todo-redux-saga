@@ -22,6 +22,10 @@ export const createTodoApi = (title, content) => {
             title: title,
             content: content
         })
+        .then(response => {
+            const createFlg = response.data.createFlg;
+            return { createFlg };
+        })
         .catch(error => {
             return { error };
         });
