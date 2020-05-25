@@ -43174,7 +43174,7 @@ function createProduct(action) {
           });
 
         case 16:
-          // TIPページへリダイレクト
+          // TOPページへリダイレクト
           action.history.push("/");
 
         case 17:
@@ -43290,7 +43290,7 @@ function initProduct() {
           });
 
         case 8:
-          _context.next = 12;
+          _context.next = 13;
           break;
 
         case 10:
@@ -43300,6 +43300,9 @@ function initProduct() {
           });
 
         case 12:
+          alert("エラーが発生しました。");
+
+        case 13:
         case "end":
           return _context.stop();
       }

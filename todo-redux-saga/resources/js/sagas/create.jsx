@@ -19,7 +19,7 @@ function* createProduct(action) {
         yield put({ type: "API_ERROR" });
         yield put({ type: "RESET_ERROR" });
     }
-    // TIPページへリダイレクト
+    // TOPページへリダイレクト
     action.history.push("/");
 }
 

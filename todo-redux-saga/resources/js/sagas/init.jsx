@@ -8,6 +8,7 @@ function* initProduct() {
         yield put({ type: "INIT_SUCCEEDED", todos });
     } else {
         yield put({ type: "API_ERROR" });
+        alert("エラーが発生しました。");
     }
 }
 
