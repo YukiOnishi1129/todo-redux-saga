@@ -33,6 +33,10 @@ export default function tasksReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 searchKeyWord: action.payload.text
             });
+        case "RESET_TODO":
+            return Object.assign({}, state, {
+                todo: []
+            });
         case "INIT":
             return Object.assign({}, state, {
                 isLoading: true

@@ -36,6 +36,9 @@ const mapDispatchToProps = dispatch => {
         },
         onClickDelete: id => {
             dispatch(deleteTodo(id));
+        },
+        onResetTodo: () => {
+            dispatch(Actions.resetTodo());
         }
     };
 };

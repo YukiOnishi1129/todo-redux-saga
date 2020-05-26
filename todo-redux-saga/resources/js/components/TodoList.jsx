@@ -12,6 +12,9 @@ export default class TodoList extends Component {
     }
 
     async componentDidMount() {
+        // 詳細、編集画面表示用のTodoのデータを初期化
+        // (詳細画面、編集画面に遷移した際に、更新したTodoが表示されないため)
+        this.props.onResetTodo();
         await this.props.initTodos();
     }
 
@@ -62,5 +65,6 @@ TodoList.propTypes = {
     ).isRequired,
     initTodos: PropTypes.func.isRequired,
     onClickUpdate: PropTypes.func.isRequired,
-    onClickDelete: PropTypes.func.isRequired
+    onClickDelete: PropTypes.func.isRequired,
+    onResetTodo: PropTypes.func.isRequired
 };

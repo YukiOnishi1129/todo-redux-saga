@@ -34,6 +34,9 @@ export default {
     updateSuccess: updateFlg => {
         return { type: "UPDATE_SUCCEEDED", updateFlg: updateFlg };
     },
+    resetTodo: () => {
+        return { type: "RESET_TODO" };
+    },
     apiError: () => {
         return { type: "API_ERROR", error: true };
     },

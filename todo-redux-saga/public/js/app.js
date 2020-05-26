@@ -41629,6 +41629,11 @@ __webpack_require__.r(__webpack_exports__);
       updateFlg: updateFlg
     };
   },
+  resetTodo: function resetTodo() {
+    return {
+      type: "RESET_TODO"
+    };
+  },
   apiError: function apiError() {
     return {
       type: "API_ERROR",
@@ -42781,10 +42786,13 @@ var TodoList = /*#__PURE__*/function (_Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                // 詳細、編集画面表示用のTodoのデータを初期化
+                // (詳細画面、編集画面に遷移した際に、更新したTodoが表示されないため)
+                this.props.onResetTodo();
+                _context.next = 3;
                 return this.props.initTodos();
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -42848,7 +42856,8 @@ TodoList.propTypes = {
   }).isRequired).isRequired,
   initTodos: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.func.isRequired,
   onClickUpdate: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.func.isRequired,
-  onClickDelete: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.func.isRequired
+  onClickDelete: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.func.isRequired,
+  onResetTodo: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.func.isRequired
 };
 
 /***/ }),
@@ -43066,6 +43075,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     onClickDelete: function onClickDelete(id) {
       dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_1__["deleteTodo"])(id));
+    },
+    onResetTodo: function onResetTodo() {
+      dispatch(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["default"].resetTodo());
     }
   };
 }; // connect(state, action)(component)
@@ -43240,6 +43252,11 @@ function tasksReducer() {
     case "SEARCH":
       return Object.assign({}, state, {
         searchKeyWord: action.payload.text
+      });
+
+    case "RESET_TODO":
+      return Object.assign({}, state, {
+        todo: []
       });
 
     case "INIT":
