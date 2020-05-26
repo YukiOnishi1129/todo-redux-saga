@@ -1,9 +1,11 @@
 import { all } from "redux-saga/effects";
 import Init from "../sagas/init";
 import Create from "../sagas/create";
+import Show from "../sagas/show";
+import Update from "../sagas/update";
 
 export default function* rootSaga() {
-    yield all([...Init, ...Create]);
+    yield all([...Init, ...Create, ...Show, ...Update]);
 }
 
 // redux-sagaの記事

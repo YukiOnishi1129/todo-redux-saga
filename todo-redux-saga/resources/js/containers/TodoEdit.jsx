@@ -1,19 +1,17 @@
 import { connect } from "react-redux";
-import { updateTodo } from "../actions";
+import Actions from "../actions/actions";
 import TodoEdit from "../components/TodoEdit";
 
-const masStateToProps = (state, ownProps) => {
+const masStateToProps = state => {
     return {
-        todos: state.reducer.tasksReducer.todos.filter(
-            todo => todo.id === Number(ownProps.todoId)
-        )
+        todo: state.reducer.tasksReducer.todo
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onUpdateTodo: (id, title, content) => {
-            dispatch(updateTodo(id, title, content));
+        onShowTodo: id => {
+            dispatch(Actions.show(id));
         }
     };
 };

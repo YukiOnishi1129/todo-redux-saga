@@ -1,4 +1,4 @@
-export const INIT = "INIT";
+// export const INIT = "INIT";
 
 // ActionCreatorの定義
 
@@ -44,18 +44,18 @@ export const searchTodo = text => ({
     }
 });
 
-export const updateTodo = (id, title, content) => ({
-    type: "UPDATE",
-    payload: {
-        id,
-        title,
-        content
-    }
-});
+// export const updateTodo = (id, title, content) => ({
+//     type: "UPDATE",
+//     payload: {
+//         id,
+//         title,
+//         content
+//     }
+// });
 
-export const deleteTodo = id => ({
-    type: "DELETE",
-    payload: {
-        id
-    }
-});
+// export const deleteTodo = id => ({
+//     type: "DELETE",
+//     payload: {
+//         id
+//     }
+// });

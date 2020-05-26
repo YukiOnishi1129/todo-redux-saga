@@ -31,13 +31,31 @@ export const createTodoApi = (title, content) => {
         });
 };
 
+// 対象のTodoデータを取得するAPI
+export const showTodoApi = id => {
+    const url = `/api/todo/${id}`;
+    return axios
+        .get(url)
+        .then(response => {
+            const todo = response.data.todo;
+            return { todo };
+        })
+        .catch(error => {
+            return { error };
+        });
+};
+
 //対象のTodoを編集するAPI
 export const updateTodoApi = (id, title, content) => {
-    const url = `api/todo/${id}`;
+    const url = `http://localhost:3000/api/todo/${id}`;
     return axios
-        .put(url, {
+        .patch(url, {
             title: title,
             content: content
+        })
+        .then(response => {
+            const updateFlg = response.data.updateFlg;
+            return { updateFlg };
         })
         .catch(error => {
             return { error };

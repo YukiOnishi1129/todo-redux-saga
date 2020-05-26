@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import PropTypes from "prop-types";
 
-class TodoAdd extends Component {
+class TodoEditArea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "",
-            content: ""
+            title: props.title,
+            content: props.content
         };
         this.handleTitle = this.handleTitle.bind(this);
         this.handleContent = this.handleContent.bind(this);
-        this.onAddTodo = this.onAddTodo.bind(this);
+        this.onEditTodo = this.onEditTodo.bind(this);
     }
 
     handleTitle(e) {
@@ -26,30 +26,26 @@ class TodoAdd extends Component {
         });
     }
 
-    async onAddTodo() {
+    async onEditTodo() {
         if (this.state.title !== "" && this.state.content !== "") {
-            await this.props.onCreateTodo(
+            await this.props.onUpdateTodo(
+                this.props.match.params.id,
                 this.state.title,
                 this.state.content,
                 this.props.history
             );
-            this.setState({
-                title: "",
-                content: ""
-            });
         } else {
-            window.alert("未入力ではTodoを作成できません");
+            window.alert("未入力ではTodoを編集できません");
         }
     }
 
     render() {
         return (
             <React.Fragment>
-                <h1 className="title">Todo Add</h1>
                 <section className="common-area">
                     <input
                         type="text"
-                        placeholder="New Todo Title"
+                        placeholder="Edit Todo Title"
                         value={this.state.title}
                         onChange={this.handleTitle}
                     />
@@ -57,12 +53,15 @@ class TodoAdd extends Component {
                         cols="30"
                         rows="10"
                         value={this.state.content}
-                        placeholder="New Todo Comment"
+                        placeholder="Edit Todo Comment"
                         onChange={this.handleContent}
                     ></textarea>
-                    <div className="add-button-area">
-                        <button className="add-button" onClick={this.onAddTodo}>
-                            Add
+                    <div className="edit-button-area">
+                        <button
+                            className="edit-button"
+                            onClick={this.onEditTodo}
+                        >
+                            Edit
                         </button>
                     </div>
                 </section>
@@ -71,11 +70,11 @@ class TodoAdd extends Component {
     }
 }
 
-TodoAdd.propsTypes = {
-    isApiError: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    onCreateTodo: PropTypes.func.isRequired,
-    onResetErrorFlg: PropTypes.func.isRequired
+TodoEditArea.propsTypes = {
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    onUpdateTodo: PropTypes.func.isRequired
 };
 
-export default withRouter(TodoAdd);
+export default withRouter(TodoEditArea);

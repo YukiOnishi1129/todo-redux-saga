@@ -59,10 +59,15 @@ class ApiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $todo = Todo::find($id);
-        $todo->title = $request->title;
-        $todo->content = $request->content;
-        $todo->save();
+        try {
+            $todo = Todo::find($id);
+            $todo->title = $request->title;
+            $todo->content = $request->content;
+            $todo->save();
+            return response()->json(['updateFlg' => true]);
+        } catch (Exception $error) {
+            return $error;
+        }
     }
 
     /**
