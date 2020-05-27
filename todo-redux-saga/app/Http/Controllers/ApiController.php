@@ -75,7 +75,13 @@ class ApiController extends Controller
      */
     public function destroy($id)
     {
-        $todo = Todo::find($id);
-        $todo->delete();
+        try {
+            $todo = Todo::find($id);
+            $todo->delete();
+            $todos = Todo::select(['id', 'title', 'content'])->get();
+            return response()->json(['todos' => $todos]);
+        } catch (Exception $error) {
+            return $error;
+        }
     }
 }

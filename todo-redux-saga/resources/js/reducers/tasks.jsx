@@ -4,7 +4,6 @@ const initialState = {
     todo: [], // 詳細画面、編集画面描画用のTodo
     isLoading: false, // API接続中
     isApiError: false, // APIエラー発生の有無
-    uniqueId: 2, // todoが初期値で2つあるため、todo追加した際のidの採番を3から開始する
     searchKeyWord: "" //検索キーワード
 };
 
@@ -44,7 +43,6 @@ export default function tasksReducer(state = initialState, action) {
         case "INIT_SUCCEEDED":
             return Object.assign({}, state, {
                 todos: action.todos,
-                uniqueId: action.todos.lenght + 1,
                 isLoading: false
             });
         case "SHOW":
@@ -72,6 +70,15 @@ export default function tasksReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 isLoading: false
             });
+        case "DELETE":
+            return Object.assign({}, state, {
+                isLoading: true
+            });
+        case "DELETE_SUCCEEDED":
+            return Object.assign({}, state, {
+                todos: action.todos,
+                isLoading: false
+            });
         case "API_ERROR":
             return Object.assign({}, state, {
                 isApiError: true,
@@ -81,10 +88,7 @@ export default function tasksReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 isApiError: false
             });
-        case "DELETE":
-            return Object.assign({}, state, {
-                todos: removeTodo(state.todos, action.payload.id)
-            });
+
         default:
             return state;
     }

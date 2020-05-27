@@ -67,7 +67,13 @@ export const updateTodoApi = (id, title, content) => {
 // 対象のTodoを削除するAPI
 export const deleteTodoApi = id => {
     const url = `${BASE_URL}/api/todo/${id}`;
-    return axios.destroy(url).catch(error => {
-        return { error };
-    });
+    return axios
+        .delete(url)
+        .then(response => {
+            const todos = response.data.todos;
+            return { todos };
+        })
+        .catch(error => {
+            return { error };
+        });
 };

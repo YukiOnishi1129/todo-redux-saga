@@ -41629,6 +41629,18 @@ __webpack_require__.r(__webpack_exports__);
       updateFlg: updateFlg
     };
   },
+  "delete": function _delete(id) {
+    return {
+      type: "DELETE",
+      id: id
+    };
+  },
+  deleteSuccess: function deleteSuccess(todos) {
+    return {
+      type: "DELETE_SUCCEEDED",
+      todo: todos
+    };
+  },
   resetTodo: function resetTodo() {
     return {
       type: "RESET_TODO"
@@ -43111,10 +43123,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./resources/js/actions/index.jsx");
-/* harmony import */ var _actions_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/actions */ "./resources/js/actions/actions.jsx");
-/* harmony import */ var _components_TodoList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/TodoList */ "./resources/js/components/TodoList.jsx");
-
+/* harmony import */ var _actions_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/actions */ "./resources/js/actions/actions.jsx");
+/* harmony import */ var _components_TodoList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/TodoList */ "./resources/js/components/TodoList.jsx");
 
 
  // アロー関数にするとthisのスコープが変わるため、functionの記法にしている
@@ -43139,19 +43149,19 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     initTodos: function initTodos() {
-      dispatch(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["default"].init());
+      dispatch(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["default"].init());
     },
     onClickDelete: function onClickDelete(id) {
-      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_1__["deleteTodo"])(id));
+      dispatch(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"](id));
     },
     onResetTodo: function onResetTodo() {
-      dispatch(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["default"].resetTodo());
+      dispatch(_actions_actions__WEBPACK_IMPORTED_MODULE_1__["default"].resetTodo());
     }
   };
 }; // connect(state, action)(component)
 
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_TodoList__WEBPACK_IMPORTED_MODULE_3__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_TodoList__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ }),
 
@@ -43238,7 +43248,12 @@ var updateTodoApi = function updateTodoApi(id, title, content) {
 
 var deleteTodoApi = function deleteTodoApi(id) {
   var url = "".concat(BASE_URL, "/api/todo/").concat(id);
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.destroy(url)["catch"](function (error) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"](url).then(function (response) {
+    var todos = response.data.todos;
+    return {
+      todos: todos
+    };
+  })["catch"](function (error) {
     return {
       error: error
     };
@@ -43286,8 +43301,6 @@ var initialState = {
   // API接続中
   isApiError: false,
   // APIエラー発生の有無
-  uniqueId: 2,
-  // todoが初期値で2つあるため、todo追加した際のidの採番を3から開始する
   searchKeyWord: "" //検索キーワード
 
 }; // Todo更新用の関数
@@ -43336,7 +43349,6 @@ function tasksReducer() {
     case "INIT_SUCCEEDED":
       return Object.assign({}, state, {
         todos: action.todos,
-        uniqueId: action.todos.lenght + 1,
         isLoading: false
       });
 
@@ -43371,6 +43383,17 @@ function tasksReducer() {
         isLoading: false
       });
 
+    case "DELETE":
+      return Object.assign({}, state, {
+        isLoading: true
+      });
+
+    case "DELETE_SUCCEEDED":
+      return Object.assign({}, state, {
+        todos: action.todos,
+        isLoading: false
+      });
+
     case "API_ERROR":
       return Object.assign({}, state, {
         isApiError: true,
@@ -43380,11 +43403,6 @@ function tasksReducer() {
     case "RESET_ERROR":
       return Object.assign({}, state, {
         isApiError: false
-      });
-
-    case "DELETE":
-      return Object.assign({}, state, {
-        todos: removeTodo(state.todos, action.payload.id)
       });
 
     default:
@@ -43475,6 +43493,78 @@ function createProduct(action) {
 
 /***/ }),
 
+/***/ "./resources/js/sagas/delete.jsx":
+/*!***************************************!*\
+  !*** ./resources/js/sagas/delete.jsx ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _network_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../network/api */ "./resources/js/network/api.jsx");
+/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-saga/effects */ "./node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
+
+
+var _marked = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(deleteProduct);
+
+
+
+
+function deleteProduct(action) {
+  var _yield$call, todos, error;
+
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function deleteProduct$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["call"])(_network_api__WEBPACK_IMPORTED_MODULE_1__["deleteTodoApi"], action.id);
+
+        case 2:
+          _yield$call = _context.sent;
+          todos = _yield$call.todos;
+          error = _yield$call.error;
+
+          if (!(todos && !error)) {
+            _context.next = 11;
+            break;
+          }
+
+          _context.next = 8;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["put"])({
+            type: "DELETE_SUCCEEDED",
+            todos: todos
+          });
+
+        case 8:
+          alert("Todoを削除しました。");
+          _context.next = 14;
+          break;
+
+        case 11:
+          _context.next = 13;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["put"])({
+            type: "API_ERROR"
+          });
+
+        case 13:
+          alert("エラーが発生しました。");
+
+        case 14:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _marked);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_2__["takeLatest"])("DELETE", deleteProduct)]);
+
+/***/ }),
+
 /***/ "./resources/js/sagas/index.jsx":
 /*!**************************************!*\
   !*** ./resources/js/sagas/index.jsx ***!
@@ -43492,6 +43582,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sagas_create__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../sagas/create */ "./resources/js/sagas/create.jsx");
 /* harmony import */ var _sagas_show__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../sagas/show */ "./resources/js/sagas/show.jsx");
 /* harmony import */ var _sagas_update__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../sagas/update */ "./resources/js/sagas/update.jsx");
+/* harmony import */ var _sagas_delete__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../sagas/delete */ "./resources/js/sagas/delete.jsx");
 
 
 var _marked = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(rootSaga);
@@ -43513,13 +43604,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+
 function rootSaga() {
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function rootSaga$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([].concat(_toConsumableArray(_sagas_init__WEBPACK_IMPORTED_MODULE_2__["default"]), _toConsumableArray(_sagas_create__WEBPACK_IMPORTED_MODULE_3__["default"]), _toConsumableArray(_sagas_show__WEBPACK_IMPORTED_MODULE_4__["default"]), _toConsumableArray(_sagas_update__WEBPACK_IMPORTED_MODULE_5__["default"])));
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([].concat(_toConsumableArray(_sagas_init__WEBPACK_IMPORTED_MODULE_2__["default"]), _toConsumableArray(_sagas_create__WEBPACK_IMPORTED_MODULE_3__["default"]), _toConsumableArray(_sagas_show__WEBPACK_IMPORTED_MODULE_4__["default"]), _toConsumableArray(_sagas_update__WEBPACK_IMPORTED_MODULE_5__["default"]), _toConsumableArray(_sagas_delete__WEBPACK_IMPORTED_MODULE_6__["default"])));
 
         case 2:
         case "end":

@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { deleteTodo } from "../actions";
 import Actions from "../actions/actions";
 import TodoList from "../components/TodoList";
 
@@ -32,7 +31,7 @@ const mapDispatchToProps = dispatch => {
             dispatch(Actions.init());
         },
         onClickDelete: id => {
-            dispatch(deleteTodo(id));
+            dispatch(Actions.delete(id));
         },
         onResetTodo: () => {
             dispatch(Actions.resetTodo());

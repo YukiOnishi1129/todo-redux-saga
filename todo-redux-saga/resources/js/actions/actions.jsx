@@ -34,6 +34,12 @@ export default {
     updateSuccess: updateFlg => {
         return { type: "UPDATE_SUCCEEDED", updateFlg: updateFlg };
     },
+    delete: id => {
+        return { type: "DELETE", id: id };
+    },
+    deleteSuccess: todos => {
+        return { type: "DELETE_SUCCEEDED", todo: todos };
+    },
     resetTodo: () => {
         return { type: "RESET_TODO" };
     },
