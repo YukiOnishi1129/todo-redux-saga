@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const BASE_URL = "http://localhost:3000";
+
 // Todoデータ全取得API
 export const getTodosApi = () => {
-    const url = "/api/todo";
+    const url = `${BASE_URL}/api/todo`;
     return axios
         .get(url)
         .then(response => {
@@ -16,7 +18,7 @@ export const getTodosApi = () => {
 
 // Todo新規作成API
 export const createTodoApi = (title, content) => {
-    const url = "api/todo";
+    const url = `${BASE_URL}/api/todo`;
     return axios
         .post(url, {
             title: title,
@@ -33,7 +35,7 @@ export const createTodoApi = (title, content) => {
 
 // 対象のTodoデータを取得するAPI
 export const showTodoApi = id => {
-    const url = `/api/todo/${id}`;
+    const url = `${BASE_URL}//api/todo/${id}`;
     return axios
         .get(url)
         .then(response => {
@@ -47,7 +49,7 @@ export const showTodoApi = id => {
 
 //対象のTodoを編集するAPI
 export const updateTodoApi = (id, title, content) => {
-    const url = `http://localhost:3000/api/todo/${id}`;
+    const url = `${BASE_URL}//api/todo/${id}`;
     return axios
         .patch(url, {
             title: title,
@@ -64,7 +66,7 @@ export const updateTodoApi = (id, title, content) => {
 
 // 対象のTodoを削除するAPI
 export const deleteTodoApi = id => {
-    const url = `api/todo/${id}`;
+    const url = `${BASE_URL}/api/todo/${id}`;
     return axios.destroy(url).catch(error => {
         return { error };
     });
