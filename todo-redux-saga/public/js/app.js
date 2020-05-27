@@ -41654,7 +41654,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************!*\
   !*** ./resources/js/actions/index.jsx ***!
   \****************************************/
-/*! exports provided: init, initSuccess, apiError, addTodo, searchTodo */
+/*! exports provided: init, initSuccess, apiError, addTodo, searchTodo, deleteTodo */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -41664,6 +41664,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apiError", function() { return apiError; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTodo", function() { return addTodo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchTodo", function() { return searchTodo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteTodo", function() { return deleteTodo; });
 // export const INIT = "INIT";
 // ActionCreatorの定義
 // Todoデータを全取得
@@ -41706,20 +41707,15 @@ var searchTodo = function searchTodo(text) {
       text: text
     }
   };
-}; // export const updateTodo = (id, title, content) => ({
-//     type: "UPDATE",
-//     payload: {
-//         id,
-//         title,
-//         content
-//     }
-// });
-// export const deleteTodo = id => ({
-//     type: "DELETE",
-//     payload: {
-//         id
-//     }
-// });
+};
+var deleteTodo = function deleteTodo(id) {
+  return {
+    type: "DELETE",
+    payload: {
+      id: id
+    }
+  };
+};
 
 /***/ }),
 
@@ -41969,55 +41965,12 @@ var Todo = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, Todo);
 
     _this = _super.call(this, props);
-    _this.state = {
-      text: _this.props.title,
-      // todoの内容は親から渡ってきたtitleを表示
-      editFlg: false
-    };
-    _this.handleClickEditForm = _this.handleClickEditForm.bind(_assertThisInitialized(_this));
-    _this.handleChangeText = _this.handleChangeText.bind(_assertThisInitialized(_this));
-    _this.handleClickUpdate = _this.handleClickUpdate.bind(_assertThisInitialized(_this));
     _this.handleClickDelete = _this.handleClickDelete.bind(_assertThisInitialized(_this));
     return _this;
-  } // Todoを編集モードに変更
+  } // Todo削除
 
 
   _createClass(Todo, [{
-    key: "handleClickEditForm",
-    value: function handleClickEditForm() {
-      this.setState({
-        editFlg: true
-      });
-    } // Todoの表示用タイトルを更新
-
-  }, {
-    key: "handleChangeText",
-    value: function handleChangeText(e) {
-      this.setState({
-        text: e.target.value
-      });
-    } // Todo更新
-
-  }, {
-    key: "handleClickUpdate",
-    value: function handleClickUpdate(e) {
-      if (e.keyCode === 13) {
-        if (e.target.value !== "") {
-          this.props.onChangeTodo(this.props.id, this.state.text);
-        } else {
-          window.alert("未入力では編集できません");
-          this.setState({
-            text: this.props.title
-          });
-        }
-
-        this.setState({
-          editFlg: false
-        });
-      }
-    } // Todo削除
-
-  }, {
     key: "handleClickDelete",
     value: function handleClickDelete() {
       if (window.confirm("todoを削除してもいいですか？")) {
@@ -42027,19 +41980,6 @@ var Todo = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      // const editForm = this.state.editFlg ? (
-      //     <input
-      //         type="text"
-      //         className="editForm"
-      //         value={this.state.text}
-      //         onChange={this.handleChangeText}
-      //         onKeyUp={this.handleClickUpdate}
-      //     />
-      // ) : (
-      //     <span className="todo-task" onClick={this.handleClickEditForm}>
-      //         {this.props.title}
-      //     </span>
-      // );
       var toDetail = function toDetail(id) {
         return "/detail/".concat(id);
       };
@@ -42051,8 +41991,7 @@ var Todo = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "todo"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "todo-task",
-        onClick: this.handleClickEditForm
+        className: "todo-task"
       }, this.props.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: toDetail(this.props.id)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -42075,7 +42014,6 @@ var Todo = /*#__PURE__*/function (_Component) {
 Todo.propTypes = {
   id: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.number.isRequired,
   title: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
-  onChangeTodo: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired,
   onRemove: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
 };
 
@@ -42723,9 +42661,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _containers_SearchTodo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/SearchTodo */ "./resources/js/containers/SearchTodo.jsx");
 /* harmony import */ var _Todo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Todo */ "./resources/js/components/Todo.jsx");
-/* harmony import */ var _network_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../network/api */ "./resources/js/network/api.jsx");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
 
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -42761,7 +42698,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 var TodoList = /*#__PURE__*/function (_Component) {
   _inherits(TodoList, _Component);
 
@@ -42773,7 +42709,6 @@ var TodoList = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, TodoList);
 
     _this = _super.call(this, props);
-    _this.handleUpdate = _this.handleUpdate.bind(_assertThisInitialized(_this));
     _this.handleDelete = _this.handleDelete.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -42805,13 +42740,7 @@ var TodoList = /*#__PURE__*/function (_Component) {
       }
 
       return componentDidMount;
-    }() // Todo更新
-
-  }, {
-    key: "handleUpdate",
-    value: function handleUpdate(targetId, title) {
-      this.props.onClickUpdate(targetId, title);
-    } // Todo削除
+    }() // Todo削除
 
   }, {
     key: "handleDelete",
@@ -42829,7 +42758,6 @@ var TodoList = /*#__PURE__*/function (_Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Todo__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
           key: todo.id
         }, todo, {
-          onChangeTodo: _this2.handleUpdate,
           onRemove: _this2.handleDelete
         }));
       });
@@ -42849,15 +42777,14 @@ var TodoList = /*#__PURE__*/function (_Component) {
 
 
 TodoList.propTypes = {
-  todos: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.shape({
-    id: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.number.isRequired,
-    title: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.string.isRequired,
-    content: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.string.isRequired
+  todos: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.shape({
+    id: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.number.isRequired,
+    title: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string.isRequired,
+    content: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string.isRequired
   }).isRequired).isRequired,
-  initTodos: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.func.isRequired,
-  onClickUpdate: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.func.isRequired,
-  onClickDelete: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.func.isRequired,
-  onResetTodo: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.func.isRequired
+  initTodos: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func.isRequired,
+  onClickDelete: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func.isRequired,
+  onResetTodo: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func.isRequired
 };
 
 /***/ }),
@@ -43069,9 +42996,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     initTodos: function initTodos() {
       dispatch(_actions_actions__WEBPACK_IMPORTED_MODULE_2__["default"].init());
-    },
-    onClickUpdate: function onClickUpdate(id, title) {
-      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_1__["updateTodo"])(id, title));
     },
     onClickDelete: function onClickDelete(id) {
       dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_1__["deleteTodo"])(id));

@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import SearchTodo from "../containers/SearchTodo";
 import Todo from "./Todo";
-import { getTodosApi } from "../network/api";
 import PropTypes from "prop-types";
 
 export default class TodoList extends Component {
     constructor(props) {
         super(props);
-        this.handleUpdate = this.handleUpdate.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
     }
 
@@ -16,11 +14,6 @@ export default class TodoList extends Component {
         // (詳細画面、編集画面に遷移した際に、更新したTodoが表示されないため)
         this.props.onResetTodo();
         await this.props.initTodos();
-    }
-
-    // Todo更新
-    handleUpdate(targetId, title) {
-        this.props.onClickUpdate(targetId, title);
     }
 
     // Todo削除
@@ -34,12 +27,7 @@ export default class TodoList extends Component {
 
         const todoList = this.props.todos.map(todo => {
             return (
-                <Todo
-                    key={todo.id}
-                    {...todo}
-                    onChangeTodo={this.handleUpdate}
-                    onRemove={this.handleDelete}
-                />
+                <Todo key={todo.id} {...todo} onRemove={this.handleDelete} />
             );
         });
         return (
@@ -64,7 +52,6 @@ TodoList.propTypes = {
         }).isRequired
     ).isRequired,
     initTodos: PropTypes.func.isRequired,
-    onClickUpdate: PropTypes.func.isRequired,
     onClickDelete: PropTypes.func.isRequired,
     onResetTodo: PropTypes.func.isRequired
 };

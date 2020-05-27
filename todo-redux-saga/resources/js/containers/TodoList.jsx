@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { updateTodo, deleteTodo } from "../actions";
+import { deleteTodo } from "../actions";
 import Actions from "../actions/actions";
 import TodoList from "../components/TodoList";
 
@@ -30,9 +30,6 @@ const mapDispatchToProps = dispatch => {
     return {
         initTodos: () => {
             dispatch(Actions.init());
-        },
-        onClickUpdate: (id, title) => {
-            dispatch(updateTodo(id, title));
         },
         onClickDelete: id => {
             dispatch(deleteTodo(id));
